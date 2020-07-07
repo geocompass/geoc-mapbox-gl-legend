@@ -1,6 +1,6 @@
 {
   "name": "geoc-mapbox-gl-legend",
-  "version": "0.1.0",
+  "version": "1.0.0",
   "description": "基于mapboxgl样式，生成图例",
   "main": "dist/mapbox-gl-legendx.js",
   "scripts": {
