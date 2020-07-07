@@ -1,2 +1,3 @@
-# mapbox-gl-legend
-基于mapboxgl地图样式生成图例工具
+# 地图图例
+
+mapboxgl样式的图例生成工具

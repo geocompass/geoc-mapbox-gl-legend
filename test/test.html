@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <!-- <link href='https://api.mapbox.com/mapbox-gl-js/v1.10.1/mapbox-gl.css' rel='stylesheet' />
+
+    <script src='https://api.mapbox.com/mapbox-gl-js/v1.10.1/mapbox-gl.js'></script>
+    <script src='https://api.mapbox.com/mapbox-gl-js/plugins/mapbox-gl-draw/v1.0.9/mapbox-gl-draw.js'></script> -->
+</head>
+
+<body>
+    <canvas id="canvas" width="800" height="800" ></canvas>
+    <!-- <div id="map" style="width: 800px; height: 800px; z-index: 10;"> -->
+
+    </div>
+
+
+    <script src="./mapbox-gl-legend.js"></script>
+    <!-- <script src="./fabric.min.js"></script> -->
+    <!-- <script src="./test.js"></script>-->
+    <!-- <script >  </script> -->
+    <script>
+        // var map = new mapboxgl.Map({
+        //     container: 'map',
+        //     style: 'http://vt.geo-compass.com/geocmap/api/v1/map/10001000187/publish', // stylesheet location
+        //     // center: [120.7, 31.2], // starting position [lng, lat]
+        //     // zoom: 9 // starting zoom
+        // });
+        async function start(){
+            var canvas = new fabric.Canvas('canvas');
+            var mapboxglLegend = new MapboxglLegend(null,'http://vt.geo-compass.com/geocmap/api/v1/map/10001000187/publish', ["1","4","3"],{dpi:300})
+            await mapboxglLegend.init()
+            res = mapboxglLegend.toDataURL()
+            // console.log()
+            const img =  new Image()
+            img.src = res;
+            var ctx = document.getElementById('canvas').getContext('2d')
+            img.onload=function(){
+                ctx.drawImage(img, 0, 0)
+            }
+        }
+        start()
+        // .then(res=>{
+        //     console.log(res.toDataURL())
+        // })
+    </script>
+</body>
+
+</html>
