@@ -9,7 +9,7 @@ class MapboxglLegend extends BaseUtil {
      * 生成mapboxgl样式的图例
      * @param {Canvas} canvas dom
      * @param {*} style 样式URL或者样式JSON
-     * @param {Array} showLayer 需要展示的图层ID
+     * @param {Array|String} showLayer 需要展示的图层ID
      * @param {Object} options 配置项
      * @param {Number} options.rowMargin 每行之间距离
      * @param {Number} options.columnMargin 每列之间距离
@@ -45,7 +45,7 @@ class MapboxglLegend extends BaseUtil {
       iconTextMargin,
       tuliLegendMargin,
     };
-    this.showLayer = [];// showLayer;
+    this.showLayer = showLayer; // 如果没有传则全部图层生成图例
     this.style = style;
     this.canvas = canvas;
   }
@@ -55,11 +55,16 @@ class MapboxglLegend extends BaseUtil {
       console.error('获取style失败！');
       return;
     }
-    for (const layerName in styleJSON.metadata.layerIDMap) {
-      if (layerName !== '背景') {
-        this.showLayer = [ ...this.showLayer, ... styleJSON.metadata.layerIDMap[layerName] ];
+    // 对于未传ID的，图例显示全部
+    if (!this.showLayer) {
+      this.showLayer = [];
+      for (const layerName in styleJSON.metadata.layerIDMap) {
+        if (layerName !== '背景') {
+          this.showLayer = [ ...this.showLayer, ...styleJSON.metadata.layerIDMap[layerName] ];
+        }
       }
     }
+
     const spriteJSON = await HttpFetch.get(styleJSON.sprite + '.json');
     if (!spriteJSON) return;
     this.legendOptions.imgURL = styleJSON.sprite + '.png';
